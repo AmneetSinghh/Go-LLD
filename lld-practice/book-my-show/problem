@@ -1,0 +1,14 @@
+
+
+book-my-show ~= IRCTC, Airline booking
+
+------- Ticket booking at scale -------
+
+main problem which we need to solve is ticket booking at scale, so heavy concurrency. 
+These both solve common subset of problems.
+
+
+- Booking, payment, cancellation these will get covered in another as well.
+
+
+

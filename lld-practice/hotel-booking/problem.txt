@@ -1,0 +1,93 @@
+
+// db implementation - sql tables 
+// concurrency problem as well, multiple people try to book the same room.
+
+
+same as Make_my_trip : 
+
+
+requirements:
+
+☑️ Currently, the system supports hotel booking, but in the future, it can be extended to include flights, holiday packages, and train bookings, similar to MakeMyTrip.
+☑️ Users can enter check-in and check-out dates, number of guests, number of rooms, and location to view hotel listings.
+☑️ Users can search for rooms directly but still need to provide check-in, check-out dates, number of guests, and other details.
+☑️ Users can filter listings based on multiple parameters, such as price, ratings, location type, accommodation type (hotel/homestay), food options, and other amenities.
+☑️ Upon selecting a hotel, users can view detailed hotel information.
+☑️ Users can choose from different room types, each with varying prices.
+☑️ Pricing updates dynamically based on selected amenities.
+☑️ Users can opt for additional services, such as room service or food options.
+☑️ Users can book a room, with the booking containing all relevant details, including the guest's information and the number of rooms booked.
+☑️ Secure payment processing with multiple options, such as credit cards and other payment methods.
+☑️ Support for booking management, including cancellations and refunds.
+
+1. Core Functionalities
+✅ Search hotels by location, dates, guests, rooms
+✅ Filter listings by price, ratings, type, amenities, food options
+✅ View hotel details (info, location, rooms, pricing)
+✅ Select & book rooms with customizable options (room type, amenities, services)
+✅ Secure payment processing (multiple methods)
+✅ Manage bookings (view, cancel, refunds)
+
+2. Future Extensibility
+🔹 Expand to flights, trains, holiday packages
+🔹 Loyalty program, reviews & ratings
+
+3. Non-Functional Requirements
+✅ Scalable, high-performance search & filtering
+✅ Concurrency handling for room availability
+✅ Consistent data & pricing updates
+
+
+
+Solution:
+
+
+step 1: 
+
+Different objects/ verbs
+
+
+☑ Stay - Stay can be hotel, homeStays, villas....
+☑ StaySearch
+☑ StayListing.
+☑ Location
+☑ Room
+☑ RoomInventory
+☑ RoomServices
+☑ Booking (Edit, Refund, Cancellation, etc.)                - in future we can go for hotelBOoking, flightBooking so these can be just child structs, booking is just the general interface.
+☑ Payment (Different methods)
+☑ User/Customer
+☑ Review & Rating (Optional, can be extended later)
+☑ Discount/Coupon (Optional, if promo codes are supported)
+☑ Invoice (For generating bills)
+
+
+
+step 2:
+
+responsibility of each object / structs / classes  (to get a clear picture of code implementation later)
+
+Stay Searching : 
+
+- fetch paginated list of stays based on user input
+- apply dynamic filters ex : rating sorting
+- get specific stay by searching name + user input.
+
+
+Stay Listing : 
+
+- wrapper for list of []stays ( encapsulate list of stays)
+- stores applied filters, etc.
+- get total Stay count.. paginatedStays, or without pagination....
+- get Metadata for listing..
+
+
+StaySearch is for querying data (what stays we want).
+StayListing is for storing & managing results (pagination, sorting).
+
+
+Stay:
+
+- give us general interface for stays - homestays , hotel are specific type of stays
+- get all types of information related to particular stay ex : all informaion for hotel, number of room available, 
+-
